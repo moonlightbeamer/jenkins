@@ -5,6 +5,12 @@ pipeline {
     REGION = 'us-east1'
     CHAOS_CLUSTER = 'jenkins-gke-auto-app'
     JMETER_CLUSTER = 'jenkins-gke-auto-app'
+    DVMA_FILENAME = 'dvwa-deployment-pe'
+    CHAOS_MESH_RBAC_FILENAME = 'chaos-dashboard-cluster-admin-rbac.yaml'
+    CHAOS_ATTACK_FILENAME = 'chaos-action-pod-failure.yaml'
+    JMETER_MASTER_FILENAME = 'jmeter-master.yaml'
+    JMETER_WORKER_FILENAME = 'jmeter-worker.yaml'
+    JMX_FILENAME = 'PE_Demo_dvwa-app.jmx'
   }
   stages {
     stage ('first') {
@@ -18,6 +24,7 @@ pipeline {
           echo "Enable Container APIs"
           gcloud services enable container.googleapis.com
           gcloud container clusters get-credentials "$CHAOS_CLUSTER" --region="$REGION" --project "$PROJECT_ID"
+          kubectl apply -f ./$JMETER_MASTER_FILENAME
         '''
       }
     }
