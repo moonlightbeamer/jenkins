@@ -27,7 +27,8 @@ pipeline {
           echo "Enable Container APIs"
           gcloud services enable container.googleapis.com
           gcloud container clusters get-credentials "$CHAOS_CLUSTER" --region="$REGION" --project "$PROJECT_ID"
-          kubectl apply -f ./$JMETER_MASTER_FILENAME
+          gcloud container images list
+          #kubectl apply -f ./$JMETER_MASTER_FILENAME
         '''
       }
     }
