@@ -28,7 +28,7 @@ pipeline {
           gcloud services enable container.googleapis.com
           gcloud container clusters get-credentials "$CHAOS_CLUSTER" --region="$REGION" --project "$PROJECT_ID"
           gcloud container images list
-          kubectl run --image=gcr.io/hello-world
+          kubectl run hi --image=gcr.io/hello-world
           kubectl get pods
           #kubectl apply -f ./$JMETER_MASTER_FILENAME
         '''
