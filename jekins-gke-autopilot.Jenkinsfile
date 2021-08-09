@@ -5,6 +5,8 @@ pipeline {
       steps {
         sh '''
           echo 'hello'
+          pwd
+          ls -la
         '''
       }
     }
