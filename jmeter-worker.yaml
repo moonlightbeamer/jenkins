@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: jmeter-worker
+  name: jmeter-worker
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: jmeter-worker
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: jmeter-worker
+    spec:
+      containers:
+      - image: gcr.io/acn-qe-accelerators/jmeter-worker-v3@sha256:934100e31baf2a5c8e20a9b8996dc1cbd6fab4608a1297b12cd028095be22d68
+        imagePullPolicy: IfNotPresent
+        name: jmeter-worker-v3-sha256-1
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
